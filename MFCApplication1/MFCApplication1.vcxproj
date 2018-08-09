@@ -180,6 +180,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CvvImage.h" />
     <ClInclude Include="GetImgData.h" />
     <ClInclude Include="MatImageConversion.h" />
     <ClInclude Include="MFCApplication1.h" />
@@ -189,6 +190,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CvvImage.cpp" />
     <ClCompile Include="GetImgData.cpp" />
     <ClCompile Include="MatImageConversion.cpp" />
     <ClCompile Include="MFCApplication1.cpp" />
