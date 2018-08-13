@@ -39,6 +39,9 @@
     <ClInclude Include="CvvImage.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ChooseTarget.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCApplication1.cpp">
@@ -59,6 +62,9 @@
     <ClCompile Include="CvvImage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ChooseTarget.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MFCApplication1.rc">
@@ -72,6 +78,15 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\MFCApplication1.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitbug_favicon.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="..\..\..\downloads\ar scan.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitbug_favicon (2).ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

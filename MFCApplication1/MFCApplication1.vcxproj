@@ -180,6 +180,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ChooseTarget.h" />
     <ClInclude Include="CvvImage.h" />
     <ClInclude Include="GetImgData.h" />
     <ClInclude Include="MatImageConversion.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChooseTarget.cpp" />
     <ClCompile Include="CvvImage.cpp" />
     <ClCompile Include="GetImgData.cpp" />
     <ClCompile Include="MatImageConversion.cpp" />
@@ -209,6 +211,9 @@
     <None Include="res\MFCApplication1.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\downloads\ar scan.png" />
+    <Image Include="res\bitbug_favicon (2).ico" />
+    <Image Include="res\bitbug_favicon.ico" />
     <Image Include="res\MFCApplication1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

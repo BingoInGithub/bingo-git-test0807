@@ -54,12 +54,12 @@ void GetImgData::get_ImgData(Mat input)
 	//fout << "0717-7" << endl;
 	//str_temp = "0717-7";
 	gid_str.clear();
-	gid_str += "0717-7";
+	gid_str += "0717-7\n";
 	gid_str += " ";
 	//将keypoints输出到txt文件中
 	//fout << offline.keypoints.size() << endl;
 	gid_str += to_string(offline.keypoints.size());
-	gid_str += " ";
+	gid_str += " \n";
 	vector<KeyPoint>::iterator ikp;
 	for (ikp = offline.keypoints.begin(); ikp != offline.keypoints.end(); ikp++)
 	{
@@ -69,19 +69,20 @@ void GetImgData::get_ImgData(Mat input)
 		gid_str += (to_string((*ikp).angle) + " ");
 		gid_str += (to_string((*ikp).response) + " ");
 		gid_str += (to_string((*ikp).octave) + " ");
-		gid_str += (to_string((*ikp).class_id) + " ");
+		gid_str += (to_string((*ikp).class_id) + " \n");
 	}
 		//fout << (*ikp).pt.x << "\t" << (*ikp).pt.y << "\t" << (*ikp).size << "\t" << (*ikp).angle << "\t\t" << (*ikp).response << "\t\t" << (*ikp).octave << "\t" << (*ikp).class_id << endl;;
 
 	//将descriptors输出到txt文件中	
 	gid_str += (to_string(offline.descriptors.rows) + " ");
-	gid_str += (to_string(offline.descriptors.cols) + " ");
+	gid_str += (to_string(offline.descriptors.cols) + " \n");
 	//fout << offline.descriptors.rows << " " << offline.descriptors.cols << endl;
 	for (int i = 0; i < offline.descriptors.rows; i++)
 		for (int j = 0; j < offline.descriptors.cols; j++)
 			gid_str += (to_string(offline.descriptors.at<float>(i, j)) + " ");
 			//fout << offline.descriptors.at<float>(i, j) << " ";
-	//fout << endl;
+	
+	gid_str += " \n";
 }
 
 void GetImgData::on_mouse(int event, int x, int y, int flags, void *ustc)//event鼠标事件代号，x,y鼠标坐标，flags拖拽和键盘操作的代号  
