@@ -55,7 +55,7 @@ void GetImgData::get_ImgData(Mat input)
 	//str_temp = "0717-7";
 	gid_str.clear();
 	gid_str += "0717-7\n";
-	gid_str += " ";
+	//gid_str += " ";
 	//将keypoints输出到txt文件中
 	//fout << offline.keypoints.size() << endl;
 	gid_str += to_string(offline.keypoints.size());
