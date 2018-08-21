@@ -42,6 +42,12 @@
     <ClInclude Include="ChooseTarget.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="BoxNum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCApplication1.cpp">
@@ -63,6 +69,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ChooseTarget.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxNum.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
