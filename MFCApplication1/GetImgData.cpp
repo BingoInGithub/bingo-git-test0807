@@ -35,7 +35,7 @@ void GetImgData::openfile(const char* ipath)
 }
 
 
-void GetImgData::get_ImgData(Mat input)
+void GetImgData::get_ImgData(Mat input, CString imgName)
 {
 	cv::SurfFeatureDetector surf(300);
 	vector<KeyPoint> Img_keypoints;
@@ -54,8 +54,8 @@ void GetImgData::get_ImgData(Mat input)
 	//fout << "0717-7" << endl;
 	//str_temp = "0717-7";
 	gid_str.clear();
-	gid_str += "0717-7\n";
-	//gid_str += " ";
+	gid_str += CT2A(imgName);
+	gid_str += " ";
 	//将keypoints输出到txt文件中
 	//fout << offline.keypoints.size() << endl;
 	gid_str += to_string(offline.keypoints.size());

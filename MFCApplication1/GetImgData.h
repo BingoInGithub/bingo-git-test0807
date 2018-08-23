@@ -23,7 +23,7 @@ public:
 	//不使用构造函数对成员变量赋值，而是使用成员函数对成员变量赋值
 	void Initorg(Mat input);
 	//公有成员是对图片的一些操作方法
-	void get_ImgData(Mat input);
+	void get_ImgData(Mat input, CString imgName);
 	void on_mouse(int event, int x, int y, int flags, void *ustc);
 	void openfile(const char* ipath);
 	string get_str();
