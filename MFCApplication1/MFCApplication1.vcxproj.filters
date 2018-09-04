@@ -48,12 +48,12 @@
     <ClInclude Include="Box.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="TemplateSets.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCApplication1.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="MFCApplication1Dlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
@@ -75,6 +75,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Box.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TemplateSets.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MFCApplication1Dlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -99,6 +105,9 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\bitbug_favicon (2).ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="..\..\..\downloads\counterclockwise32×32.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

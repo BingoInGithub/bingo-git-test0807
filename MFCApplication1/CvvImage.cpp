@@ -126,7 +126,8 @@ void  CvvImage::CopyOf(IplImage* img, int desired_color)
 	if (HG_IS_IMAGE(img))
 	{
 		int color = desired_color;
-		CvSize size = cvGetSize(img);
+		//CvSize size = cvGetSize(img);
+		CvSize size = cvSize(img->width, img->height);
 		if (color < 0)
 			color = img->nChannels > 1;
 		if (Create(size.width, size.height,

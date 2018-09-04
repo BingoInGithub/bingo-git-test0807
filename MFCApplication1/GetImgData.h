@@ -4,11 +4,13 @@
 #include <cstdio>  
 #include <opencv2/opencv.hpp>
 #include <iostream>
-#include <opencv2/nonfree/nonfree.hpp>
-#include <opencv2/nonfree/features2d.hpp>
+//#include <opencv2/nonfree/nonfree.hpp>
+//#include <opencv2/nonfree/features2d.hpp>
+#include <opencv2/xfeatures2d/nonfree.hpp>
 #include <fstream>
 using namespace cv;
 using namespace std;
+using namespace xfeatures2d;
 
 class GetImgData
 {

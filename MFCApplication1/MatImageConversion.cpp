@@ -104,6 +104,7 @@ void MatImageConversion::CImageToMat(CImage& cimage, Mat& mat)
 	{
 		mat.create(nHeight, nWidth, CV_8UC3);
 	}
+	
 
 
 	//¿½±´Êý¾Ý
