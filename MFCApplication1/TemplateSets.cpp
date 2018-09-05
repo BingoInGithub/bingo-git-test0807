@@ -307,8 +307,12 @@ void TemplateSets::InitVvideo(string filepath)
 		rvvideo.sign = true;
 		rvvideo.index = i;
 		cap >> IVimg;
+		/*****************此处注意*************************/
+		//如果直接使用rvvideo.image=IVimg;则image与IVimg共享同一段地址，当下次循环中IVimg改变后，
+		//image也会随之改变，因此必须使用IVimg.clone()开辟新的内存空间
 		Mat temp = IVimg.clone();
 		rvvideo.image = temp;
+		/*****************************************************/
 		V_video.push_back(rvvideo);
 		temp.release();
 	}
