@@ -858,7 +858,6 @@ void CMFCApplication1Dlg::tracktarget(LPVOID args)
 			//dlg->GetDlgItem(IDC_STATICPicture)->GetDC()->TextOut(xx, yy, strde);
 		}
 
-
 		//显示SRCImage到窗口
 		dlg->ShowToControl(dlg->srcImage);
 		//imshow("df", srcImage);
