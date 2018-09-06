@@ -231,6 +231,7 @@ void CMFCApplication1Dlg::DrawEllipse(CPoint point, int r)
 	dc.Ellipse(point.x - r, point.y - r, point.x + r, point.y + r);
 	dc.SelectObject(oldbrush);
 }
+
 void CMFCApplication1Dlg::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
@@ -719,9 +720,10 @@ void CMFCApplication1Dlg::OnMuVideo()
 		//FilePathName.clear();
 		//Invalidate();
 		ShowRotationCtrl(true);
+		if (srcImage.empty())
+			AfxMessageBox(_T("视频读取失败"));
 	}
-	if(srcImage.empty())
-		AfxMessageBox(_T("视频读取失败"));
+	
 	ShowSubmitCtrl(false);
 	SetMenu(&menu);
 }
@@ -738,28 +740,33 @@ void CMFCApplication1Dlg::OnMuVideo()
 //	}
 //}
 
-//int imgindex = 0;
-//int imgindex2 = 0;
-//int imgindex3 = 0;
-//int xx = 40,yy=40;
+int imgindex = 0;
+int imgindex2 = 0;
+int imgindex3 = 0;
+int xx = 40,yy=20;
 //vector<int> vadd;
+
 void CMFCApplication1Dlg::updaterect2d(LPVOID args)
 {
 	CMFCApplication1Dlg* dlg = (CMFCApplication1Dlg*)args;
+	Mat updImg;
 	while (dlg->updaterect2dflag)
 	{
-		while (dlg->updateflag) 
+		//while (dlg->updateflag) 
 		{
+			//用之前临时复制，保证时效性
+			updImg = dlg->srcImage.clone();
+			
 			//将查询图像与每个模板图像都进行匹配，匹配点数最多的作为正确匹配
 			//将模板图像与查询图像进行匹配，得到透视变换矩阵H
-			dlg->H = dlg->get_H(dlg->V_Data, dlg->cur_ol_corner);
+			dlg->H = dlg->get_H(dlg->V_Data, dlg->cur_ol_corner, updImg);
 
 			//框出目标物体
 			dlg->getbox(dlg->V_Data, dlg->targetNum, dlg->pre_corner, dlg->cur_ol_corner);
 			//if ((dlg->rect2d.width > 4) && (dlg->rect2d.height > 4))
 			{
-				dlg->tracker->init(dlg->srcImage, dlg->rect2d);
-
+				dlg->tracker->init(updImg, dlg->rect2d);
+				imgindex2 = imgindex;
 				/*CString strde;
 				strde.Format(_T("%d"), imgindex);
 				dlg->GetDlgItem(IDC_STATICPicture)->GetDC()->TextOut(xx, yy+20, strde);
@@ -809,6 +816,7 @@ void CMFCApplication1Dlg::tracktarget(LPVOID args)
 
 		//查询图像srcImage
 		*cap >> dlg->srcImage;
+		imgindex = frame_num;
 		//cap.read(capframe);
 		if (dlg->srcImage.empty())
 			AfxMessageBox(_T("视频读取失败"));
@@ -824,7 +832,7 @@ void CMFCApplication1Dlg::tracktarget(LPVOID args)
 			dlg->updateflag = false;
 		if (firstflag)
 		{
-			dlg->H = dlg->get_H(dlg->V_Data, dlg->cur_ol_corner);
+			dlg->H = dlg->get_H(dlg->V_Data, dlg->cur_ol_corner, dlg->srcImage);
 			//从getbox函数中得到rect2d
 			dlg->getbox(dlg->V_Data, dlg->targetNum, dlg->pre_corner, dlg->cur_ol_corner);
 			//if ((rect2d.width > 4)&&(rect2d.height > 4))
@@ -848,15 +856,22 @@ void CMFCApplication1Dlg::tracktarget(LPVOID args)
 
 			firstflag = false;
 		}
-		//if ((rect2d.width > 4) && (rect2d.height > 4))
-		{
-			dlg->tracker->update(dlg->srcImage, dlg->rect2d);
-			rectangle(dlg->srcImage, dlg->rect2d, Scalar(255, 0, 123), 2, 1);
-
-			//CString strde;
-			//strde.Format(_T("%d"), frame_num);
-			//dlg->GetDlgItem(IDC_STATICPicture)->GetDC()->TextOut(xx, yy, strde);
-		}
+		
+		dlg->tracker->update(dlg->srcImage, dlg->rect2d);
+		rectangle(dlg->srcImage, dlg->rect2d, Scalar(255, 0, 123), 2, 1);
+		/*if (imgindex != imgindex2) {
+			CString strde, strde2;
+			strde.Format(_T("%d"), frame_num);
+			strde2.Format(_T("%d"), imgindex2);
+			dlg->GetDlgItem(IDC_STATICPicture)->GetDC()->TextOut(xx, yy, strde);
+			dlg->GetDlgItem(IDC_STATICPicture)->GetDC()->TextOut(xx+30, yy + 20, strde2);
+			xx += 30;
+			if (xx > 800)
+			{
+				xx = 40;
+				yy += 40;
+			}
+		}*/
 
 		//显示SRCImage到窗口
 		dlg->ShowToControl(dlg->srcImage);
@@ -1114,12 +1129,12 @@ void CMFCApplication1Dlg::ReadImgData(int &b_num)
 	}
 }
 
-Mat CMFCApplication1Dlg::get_H(vector<Img_Data> v_data, vector<Box> &cur_ol_corner)
+Mat CMFCApplication1Dlg::get_H(vector<Img_Data> v_data, vector<Box> &cur_ol_corner, Mat cur_img)
 {
 	//得到在线数据
 	vector<KeyPoint> keypoints_scene;
 	Mat descriptors_scene;
-	get_online_data(keypoints_scene, descriptors_scene);
+	get_online_data(cur_img, keypoints_scene, descriptors_scene);
 	//每一个都匹配，返回匹配点数
 	Img_Data best_match = v_data[0];
 	int match_num = 0, cur_num = 0;
@@ -1153,7 +1168,7 @@ Mat CMFCApplication1Dlg::get_H(vector<Img_Data> v_data, vector<Box> &cur_ol_corn
 	return H;
 }
 
-void CMFCApplication1Dlg::get_online_data(vector<KeyPoint> &keypoints_scene, Mat &descriptors_scene)
+void CMFCApplication1Dlg::get_online_data(Mat cur_img, vector<KeyPoint> &keypoints_scene, Mat &descriptors_scene)
 {
 	//【2】使用SURF算子检测关键点  
 	//cv::SurfFeatureDetector surf(300);
@@ -1161,12 +1176,12 @@ void CMFCApplication1Dlg::get_online_data(vector<KeyPoint> &keypoints_scene, Mat
 	//vector<KeyPoint> keypoints_scene;//vector模板类，存放任意类型的动态数组  
 
 	//【3】调用detect函数检测出SURF特征关键点，保存在vector容器中  
-	surf->detect(srcImage, keypoints_scene);
+	surf->detect(cur_img, keypoints_scene);
 
 	//【4】计算描述符（特征向量） 
 	//cv::SurfDescriptorExtractor surfDesc;
 	//Mat descriptors_scene;
-	surf->compute(srcImage,keypoints_scene, descriptors_scene);
+	surf->compute(cur_img,keypoints_scene, descriptors_scene);
 }
 
 int CMFCApplication1Dlg::get_match_num(Mat des_template, Mat des_query, Img_Data best_match, vector<KeyPoint> keypoints_scene,
